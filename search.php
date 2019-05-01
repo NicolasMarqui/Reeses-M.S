@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./styles/style.css">
 </head>
-<body onload="getSearch('<?php echo strval($query)?>')">
+<body >
     <div class="mainWrapper">
        <header>
             <?php include('./nav.php')?>

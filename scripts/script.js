@@ -39,7 +39,14 @@ $(document).ready(function(){
 
     function selectItem(i , data){
         let items = $('.item');
-        items[i].style.background = `url(${imgPath}${data.poster_path})`;
+        
+        if(items.length){
+            items[i].style.background = `url(${imgPath}${data.poster_path})`;
+        }
+
+        // items[i].style.background = `url(${imgPath}${data.poster_path})`;
+
+        
     }
 
     function getDate(){
@@ -96,7 +103,11 @@ $(document).ready(function(){
                 img.src = `${imgPath}${tr.poster_path}`;
                 a.appendChild(img);
                 li.appendChild(a);
-                document.querySelector('.showTrending ul').appendChild(li);
+                //document.querySelector('.showTrending ul').appendChild(li);
+
+                if($('.showTrending ul').length){
+                    document.querySelector('.showTrending ul').appendChild(li);
+                }
 
                 li.addEventListener('click', function(){
 
@@ -152,6 +163,13 @@ $(document).ready(function(){
 
         $('.searchParam').keyup(function(e){
             
+            $(document).on('keypress',function(e) {
+                if(e.which == 13) {
+                    console.log(e.target.value)
+                    window.location = `http://localhost/reese-movies/search?q=${e.target.value}`
+                    getSearch(e.target.value);
+                }
+            });
 
             $('#search').click(function(){
                 console.log(e.target.value)
@@ -190,9 +208,11 @@ $(document).ready(function(){
                     let h1 = document.createElement('h1');
                     let p = document.createElement('p');
 
-                    img.classList.add('imgSearchResults');                    
-                    if(q.poster_path === undefined){
-                        img.src = 'https://pngimage.net/wp-content/uploads/2018/06/image-not-found-png-5.png';
+                    img.classList.add('imgSearchResults');
+                    
+                    if(q.poster_path === undefined || q.backdrop_path === null){
+                        img.src = 'https://cdn.browshot.com/static/images/not-found.png';
+                        $('.imgSearchResults').attr('width', '250');
                     }else{
                         img.src = `http://image.tmdb.org/t/p/w780/${q.poster_path}`
                     }
@@ -204,11 +224,14 @@ $(document).ready(function(){
                     }
 
                     p.innerHTML = q.overview;
-                    const accp = 300;
 
-                    if(q.overview.length < 1000){
+                    if(q.overview.length < 900){
                         p.innerHTML = q.overview;
+                        //console.log( q.overview.length % 300)
+                        console.log(q.overview.length)
                     }else{
+                        let accp = 300;
+                        console.log(q.overview.length)
                         let cutted = q.overview.slice(0, accp);
                         p.innerHTML = cutted;
                         p.innerHTML.concat('Read More');
@@ -248,14 +271,14 @@ $(document).ready(function(){
                     if(q.media_type === 'movie'){
                         $('<ul class="moreInfoList"><li><span class="voteAverage">' + q.vote_average
                          + '</span></li><li><p class="releaseDate">Data de Lancamento: <br> <span>'
-                         + q.release_date + '</span></p></li><li><button class="verDetalhes"><a href="info?id=' + q.id
-                          + '&tipo=movie"> Ver Mais </a></button></li></ul>')
+                         + q.release_date + '</span></p></li><li><a class="verDetalhes" href="info?id=' + q.id
+                          + '&tipo=movie"> Ver Mais </a></li></ul>')
                             .appendTo(moreInfo);
                     }else{
                         $('<ul class="moreInfoList"><li><span class="voteAverageTv">' + q.vote_average
                          + '</span></li><li><p class="releaseDate">Data de Lancamento: <br> <span>'
-                         + q.first_air_date + '</span></p></li><li><button class="verDetalhes"><a href="info?id=' + q.id
-                          + '&tipo=tv"> Ver Mais </a></button></li></ul>')
+                         + q.first_air_date + '</span></p></li><li><a class="verDetalhes" href="info?id=' + q.id
+                          + '&tipo=tv"> Ver Mais </a></li></ul>')
                             .appendTo(moreInfo);
                     }
 
@@ -271,12 +294,10 @@ $(document).ready(function(){
                     outerDiv.appendChild(row2);
                     outerDiv.appendChild(row3);
 
-                    parent.appendChild(outerDiv);
-                    
-
+                    if($('.mainContainer').length){
+                        parent.appendChild(outerDiv);
+                    }
                     console.log(q)
-
-                    //document.querySelector('.mainContent ').appendChild(infoDiv);
                 })
             })
     }
@@ -285,12 +306,27 @@ $(document).ready(function(){
 
     let queryType = getQueryVariable("tipo");
     let queryId = getQueryVariable("id");
+    const fullImgPath = 'http://image.tmdb.org/t/p/original/';
 
     function getDetails(type, id){
         let url = `https://api.themoviedb.org/3/${type}/${id}?api_key=8d39ecbb90f8779a25effbbda999db32&language=en-US`;
         
         $.ajax({url }).done(function(data){
-            console.log(data);
+            console.log(data)
+
+            if(type === 'tv'){
+                if(data.backdrop_path !== null){
+                    $('.mainContainerInfo').css('background', `url(${fullImgPath}${data.backdrop_path}) no-repeat center center/cover`)
+                }
+
+                $('<img src="http://image.tmdb.org/t/p/w780' + data.poster_path + '">').appendTo('.imgWrapperInfo');
+            }else{
+                if(data.backdrop_path !== undefined){
+                    $('.mainContainerInfo').css('background', `url(${fullImgPath}${data.backdrop_path}) no-repeat center center/cover`);
+                    $('<img src="http://image.tmdb.org/t/p/w780' + data.poster_path + '">').appendTo('.imgWrapperInfo');
+                }
+            }
+
         })
     }
 

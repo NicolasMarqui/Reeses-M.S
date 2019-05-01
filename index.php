@@ -18,13 +18,24 @@
             <?php include('./nav.php') ?>
         </header>
         <div class="hero">
-            eae
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 text-center">
+                        <h1 class="reeseTitle">Reese<br>M.V</h1>
+                    </div>
+                    <div class="col-xs-12 col-md-6 text-center loginIsh">
+                        <h1>Alugue filmes e séries <span>sem sair de casa</span></h1>
+                            <button>Login</button><br>
+                            <h6>Não tem conta?</h6>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="bannerTitle">
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <h1>Filmes da Semana</h1>
+                            <h1 >Filmes da Semana</h1>
                         </div>
                         <div class="col-xs-12 col-md-6 text-right">
                             <h4>Termina em <span id="showData">00:00</span></h4>

@@ -17,7 +17,18 @@
         <header>
             <?php include('./nav.php') ?>
         </header>
-        
+        <div class="mainContainerInfo">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 imgWrapperInfo">
+                    </div>
+                    <div class="col-xs-12 col-md-6 textWrapperInfo">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo=" crossorigin="anonymous"></script> 
     <script src="./scripts/script.js"></script>

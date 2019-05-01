@@ -2,7 +2,9 @@
     <div class="container">
         <div class="row fs-0">
             <div class="col-xs-6 col-md-3 col-in-block">
-                <img src="./assets/logo.png" alt="logo" class="img-responsive logoImg">
+                <a href="home">
+                    <img src="./assets/logo.png" alt="logo" class="img-responsive logoImg">
+                </a>
             </div>
             <div class="hidden-sm hidden-xs col-md-9 col-in-block text-right">
                 <div class="menu">
