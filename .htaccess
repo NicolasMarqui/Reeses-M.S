@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^home?$ index.php
+RewriteRule ^search?$ search.php
+RewriteRule ^info?$ info.php
