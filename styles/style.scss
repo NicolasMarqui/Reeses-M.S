@@ -287,12 +287,16 @@ $border: 2px solid red;
 
     .hero{
         max-width: 100%;
+        padding: 55px 0;
+        background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(155,11,194,1) 59%, rgba(0,212,255,1) 100%);
+
        @media(min-width: 992px){
            padding: 200px 0;
        }
 
        .reeseTitle{
-        font-size: 35px;
+        font-size: 55px;
         color: #fff;
         }
 
@@ -300,6 +304,24 @@ $border: 2px solid red;
             max-width: 100%;
             h1{
                 color: #fff;
+                font-size: 35px;
+                text-align: left;
+            }
+
+            button{
+                padding: 14px;
+                margin: 10px;
+                width: 200px;
+                border: none;
+                outline: none;
+                background-color: #000;
+
+                color: #ffffff;
+            }
+
+            a{
+                color: black;
+                font-weight: 200;
             }
         }
     }
@@ -372,6 +394,30 @@ $border: 2px solid red;
 
             img{
                 height: 100px;
+            }
+
+            .displaySelectedOne{
+                padding: 70px;
+                position: relative;
+
+                @media(min-width: 768px){
+                    //padding: 200px;
+                }
+
+                .imagesTre{
+                    position: absolute;
+
+                    img{
+                        height: 500px;
+                    }
+                }
+
+
+                .displayOne[style]{
+                    display: block!important;
+                }
+
+
             }
         }
 

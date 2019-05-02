@@ -26,7 +26,7 @@
                     <div class="col-xs-12 col-md-6 text-center loginIsh">
                         <h1>Alugue filmes e séries <span>sem sair de casa</span></h1>
                             <button>Login</button><br>
-                            <h6>Não tem conta?</h6>
+                            <a>Não tem conta?</a>
                     </div>
                 </div>
             </div>
@@ -64,11 +64,17 @@
             </div>
             <div class="showTrending">
                 <div class="displaySelectedOne">
-                    <p>Selecione Um Abaixo</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-7 infoSe">
+                                
+                            </div> 
+                        </div>
+                    </div>
                 </div>
-                <ul>
+                <!-- <ul>
                     
-                </ul>
+                </ul> -->
             </div>
         </div>
     </div>

@@ -90,20 +90,37 @@ $(document).ready(function(){
     
     getGenres();
 
+    function isEmpty(obj , field){
+        for(let key in obj) {
+            if(obj[key] === field)
+                return true;
+        }
+        return false;
+    }
+
     function getTrending(dia = 'day', media = 'all'){
         let url = `https://api.themoviedb.org/3/trending/${media}/${dia}?api_key=8d39ecbb90f8779a25effbbda999db32`;
 
         $.ajax({ url }).done(function(data){
             $.map(data.results, function(tr, i){
-                //$('.showTrending ul').append('<li><a href=#><img class=imgTrending src=' + `${imgPath}${tr.poster_path}` + '></a></li>');
                 let li = document.createElement('li');
                 let a = document.createElement('a');
                 let img = document.createElement('img');
 
                 img.src = `${imgPath}${tr.poster_path}`;
+
+                console.log(data.results[i])
+
+                changeTrending(data.results[i], i)
+
+                $('<div class="imagesTre col-xs-12 col-md-5 "><img src="' + imgPath + tr.poster_path + '"></div>').appendTo($('.displaySelectedOne .container .row'));
+
+                $('.imagesTre').css('display', 'none');
+                $('.imagesTre').first().addClass('displayOne');
+
+                img.src = `${imgPath}${tr.poster_path}`;
                 a.appendChild(img);
                 li.appendChild(a);
-                //document.querySelector('.showTrending ul').appendChild(li);
 
                 if($('.showTrending ul').length){
                     document.querySelector('.showTrending ul').appendChild(li);
@@ -138,9 +155,46 @@ $(document).ready(function(){
                
             })
         })
+        
+        
     }
 
     getTrending();
+
+    let imageCont = $('.showTrending .displaySelectedOne');
+    let count = 0;
+    
+    function changeTrending(data, count = 0){
+        $(imageCont).click(function(){
+            console.log('rodeu')
+            let allImages = $('.imagesTre');
+            let len = allImages.length;
+    
+            if($(allImages[count]).hasClass('displayOne')){
+                $(allImages[count]).removeClass('displayOne')
+            }
+    
+            $(allImages[count]).next().addClass('displayOne');
+
+            console.log(data)
+
+            // if('title' in data){
+            //     $('<div class="showSelectedInfo"><h1>' + data.title +  '<h1><div>').appendTo('.infoSe')
+            // }else{
+            //     $('<div class="showSelectedInfo"><h1>' + data.name +  '<h1><div>').appendTo('.infoSe')
+            // }
+    
+            if(count >= len - 1){
+                $(allImages).first().addClass('displayOne');
+                count = 0;
+                return;
+            }
+    
+            count++;
+        })
+    }
+
+    changeTrending();
 
     function getSearch(query){
         $.ajax({ url: `https://api.themoviedb.org/3/search/multi?api_key=8d39ecbb90f8779a25effbbda999db32&language=en-US&query=${query}&page=1&include_adult=false` })
@@ -228,10 +282,10 @@ $(document).ready(function(){
                     if(q.overview.length < 900){
                         p.innerHTML = q.overview;
                         //console.log( q.overview.length % 300)
-                        console.log(q.overview.length)
+                        //console.log(q.overview.length)
                     }else{
                         let accp = 300;
-                        console.log(q.overview.length)
+                        //console.log(q.overview.length)
                         let cutted = q.overview.slice(0, accp);
                         p.innerHTML = cutted;
                         p.innerHTML.concat('Read More');
@@ -297,7 +351,7 @@ $(document).ready(function(){
                     if($('.mainContainer').length){
                         parent.appendChild(outerDiv);
                     }
-                    console.log(q)
+                    //console.log(q)
                 })
             })
     }
